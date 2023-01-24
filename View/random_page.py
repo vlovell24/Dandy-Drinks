@@ -17,7 +17,8 @@ class RandomPage(ttk.Frame):
         self.top_frame = ttk.Frame(self)
         self.top_frame.grid(row=0, column=0, sticky='nsew')
         self.top_frame.columnconfigure(0, weight=1)
-        self.top_frame.columnconfigure(1, weight=2)
+        self.top_frame.columnconfigure(1, weight=1)
+        self.top_frame.columnconfigure(2, weight=1)
         # ----------------------------------------------------SHUFFLE BUTTON--------------------------------------------
         self.shuffle_button = ttk.Button(
             self.top_frame,
@@ -26,6 +27,14 @@ class RandomPage(ttk.Frame):
             command=lambda: self.shuffle_drink()
         )
         self.shuffle_button.grid(row=0, column=0, sticky='w')
+        # -----------------------------------------------------HOME BUTTON----------------------------------------------
+        self.home_button = ttk.Button(
+            self.top_frame,
+            text="Home",
+            bootstyle="dark",
+            command=lambda: self.return_to_homepage()
+        )
+        self.home_button.grid(row=0, column=2, sticky='e')
         # ----------------------------------------------------------DRINK NAME------------------------------------------
         self.drink_name = ttk.Label(
             self.top_frame,
@@ -182,4 +191,7 @@ class RandomPage(ttk.Frame):
         # remove the None values if found in the measurement section. Some ingredients do not have a measurement
         none_removed = formatted_string.replace("None", "")
         return none_removed
+
+    def return_to_homepage(self):
+        print("I was clicked")
 
