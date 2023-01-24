@@ -8,6 +8,7 @@ from View.gif import AnimatedGif
 from View.home_text import HomeText
 from View.random_page import RandomPage
 
+
 class Application(ttk.Window):
     # -------------------------------SET SINGLETON FOR ONLY ONE INSTANCE OF APP AT ONE TIME-----------------------------
     _instance = None
@@ -21,6 +22,7 @@ class Application(ttk.Window):
     # ------------------------------------CONSTRUCTOR-------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.randomInstance = None  # used to destroy the Random Page
         # --------------------------------SET THEME AND DISABLE CLOSE BUTTON--------------------------------------------
         self.style.theme_use('united')
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -53,20 +55,29 @@ class Application(ttk.Window):
     def destroy_widgets(self):
         # get the random drink data that we want to append to the application window
         random_data = return_random_drink()
-        if random_data: # if we can connect to the interwebz
-            # destroy widgets on application page
-            self.home_text.destroy()
-            self.gif.destroy()
-            self.bottom_section.destroy()
+        if random_data:  # if we can connect to the interwebz
+            # hide widgets on application page
+            self.home_text.pack_forget()
+            self.gif.pack_forget()
+            self.bottom_section.pack_forget()
             # create random page
             self.create_random_widgets(random_data)
         else:  # if there was a connection error
             return
 
+    def create_home_page(self):
+        """
+        Destroys the random page from the window, and repacks the home pages gif, text and bottom section
+        :return: None; destroys random page and shows home page
+        """
+        self.randomInstance.destroy()
+        self.gif.pack()
+        self.home_text.pack()
+        self.bottom_section.pack(fill='x')
 
     def create_random_widgets(self, data):
-        RandomPage(self, data).pack()
-
+        self.randomInstance = RandomPage(self, data, lambda: self.create_home_page())
+        self.randomInstance.pack()
 
     def on_close(self):
         """Use to create custom close later"""

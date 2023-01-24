@@ -8,11 +8,11 @@ from PIL import Image, ImageTk
 class RandomPage(ttk.Frame):
     """Layout for the random drink page"""
 
-    def __init__(self, parent, random_data):
+    def __init__(self, parent, random_data, home_page):  # home page is a method to go back to the home page
         ttk.Frame.__init__(self, parent)
+        self.homepage = home_page
         self.random_data = random_data  # the entire drink object
         self.ingredients = random_data[6:]  # only the ingredients/measurements from the drink object
-
         # ------------------------------------------------FRAME FOR TOP BUTTON AND DRINK NAME---------------------------
         self.top_frame = ttk.Frame(self)
         self.top_frame.grid(row=0, column=0, sticky='nsew')
@@ -32,7 +32,7 @@ class RandomPage(ttk.Frame):
             self.top_frame,
             text="Home",
             bootstyle="dark",
-            command=lambda: self.return_to_homepage()
+            command=self.homepage
         )
         self.home_button.grid(row=0, column=2, sticky='e')
         # ----------------------------------------------------------DRINK NAME------------------------------------------
@@ -192,6 +192,4 @@ class RandomPage(ttk.Frame):
         none_removed = formatted_string.replace("None", "")
         return none_removed
 
-    def return_to_homepage(self):
-        print("I was clicked")
 
