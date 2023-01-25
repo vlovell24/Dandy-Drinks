@@ -46,6 +46,12 @@ The random page displays the following information:
   - Alcoholic or Non-Alcoholic
   - Glass Type
   - Instructions for making the drink including ingredients and measurements
+
+Clicking on the Shuffle New Random Drink Button will return a new random drink.
+
+<p float="left">
+<img src="readme_images/shuffle.png" alt="random shuffle" style="width: 500px;"/>
+</p>
   
 
 # CURRENTLY IN PROGRESS!!
