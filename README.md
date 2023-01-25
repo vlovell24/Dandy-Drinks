@@ -48,6 +48,7 @@ The random page displays the following information:
   - Instructions for making the drink including ingredients and measurements
 
 Clicking on the Shuffle New Random Drink Button will return a new random drink.
+Clicking on the Home button will return the user to the Home page of the application.
 
 <p float="left">
 <img src="readme_images/shuffle.png" alt="random shuffle" style="width: 500px;"/>
