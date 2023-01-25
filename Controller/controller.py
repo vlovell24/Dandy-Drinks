@@ -16,7 +16,7 @@ def return_random_drink():
     try:
         data = requests.get(url)
         drinks = json.loads(data.text)
-        #print(drinks)
+        # print(drinks)
         for array in (drinks["drinks"]):
             return_array.extend([
                 array['strDrink'],
@@ -57,3 +57,34 @@ def return_random_drink():
     return return_array
 
 
+def return_categories():
+    """
+    Queries thecocktaildb for a list of all the drink categories. Pulls the strCategory name out of the returned data
+    appends to return_array and returns the array.
+    :return: return_array
+    """
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
+    return_array = []
+    try:
+        data = requests.get(url)
+        drinks = json.loads(data.text)
+        for array in (drinks["drinks"]):
+            return_array.append(array['strCategory'])
+    except BaseException:  # if no connection detected
+        return None
+
+    return return_array
+
+
+def return_drinks_by_category(category):
+    url = f'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c={category}'
+    return_array = []
+    try:
+        data = requests.get(url)
+        drinks = json.loads(data.text)
+        for array in (drinks["drinks"]):
+            return_array.append(array['strDrink'])
+    except BaseException:
+        return None
+
+    return return_array

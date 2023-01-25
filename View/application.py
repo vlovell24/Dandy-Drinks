@@ -1,12 +1,13 @@
 from tkinter import BOTH, YES
 from View.home_button_frame import MainButtonGroup
-from Controller.controller import return_random_drink
+from Controller.controller import return_random_drink, return_categories
 import ttkbootstrap as ttk
 from Images import LOGO
 from View.title_bar import TitleBar
 from View.gif import AnimatedGif
 from View.home_text import HomeText
 from View.random_page import RandomPage
+from View.category_page import CategoryPage
 
 
 class Application(ttk.Window):
@@ -23,6 +24,7 @@ class Application(ttk.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.randomInstance = None  # used to destroy the Random Page
+        self.categoryInstance = None # used to destroy the Category Page
         # --------------------------------SET THEME AND DISABLE CLOSE BUTTON--------------------------------------------
         self.style.theme_use('united')
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -49,35 +51,57 @@ class Application(ttk.Window):
         self.home_text = HomeText(self)
         self.home_text.pack()
         # --------------------------------------- BOTTOM BUTTONS AND IMAGES---------------------------------------------
-        self.bottom_section = MainButtonGroup(self, self.gif, self.home_text, lambda: self.destroy_widgets())
+        self.bottom_section = MainButtonGroup(self, self.gif, self.home_text, lambda: self.create_random_page(), lambda: self.create_category_page())
         self.bottom_section.pack(fill='x')
 
     def destroy_widgets(self):
+        """
+        Hides the home page widgets
+        :return: None; hides the widgets
+        """
+        self.home_text.pack_forget()
+        self.gif.pack_forget()
+        self.bottom_section.pack_forget()
+
+    def show_widgets(self):
+        """
+        Shows the home page widgets
+        :return: None; shows home page widgets
+        """
+        self.gif.pack()
+        self.home_text.pack()
+        self.bottom_section.pack(fill='x')
+
+    def create_random_page(self):
         # get the random drink data that we want to append to the application window
         random_data = return_random_drink()
         if random_data:  # if we can connect to the interwebz
-            # hide widgets on application page
-            self.home_text.pack_forget()
-            self.gif.pack_forget()
-            self.bottom_section.pack_forget()
+            self.destroy_widgets()
             # create random page
             self.create_random_widgets(random_data)
-        else:  # if there was a connection error
+        else:
             return
 
-    def create_home_page(self):
+    def destroy_random_page(self):
         """
         Destroys the random page from the window, and repacks the home pages gif, text and bottom section
         :return: None; destroys random page and shows home page
         """
         self.randomInstance.destroy()
-        self.gif.pack()
-        self.home_text.pack()
-        self.bottom_section.pack(fill='x')
+        self.show_widgets()
 
     def create_random_widgets(self, data):
-        self.randomInstance = RandomPage(self, data, lambda: self.create_home_page())
+        self.randomInstance = RandomPage(self, data, lambda: self.destroy_random_page())
         self.randomInstance.pack()
+
+    def create_category_page(self):
+        # get categories
+        category_data = return_categories()
+        # hide home page widgets
+        self.destroy_widgets()
+        # show category page
+        self.categoryInstance = CategoryPage(self, category_data)
+        self.categoryInstance.pack()
 
     def on_close(self):
         """Use to create custom close later"""

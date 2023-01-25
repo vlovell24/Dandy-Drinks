@@ -7,7 +7,7 @@ from Images import LEFT_IMAGE
 class MainButtonGroup(ttk.Frame):
     """group of four buttons and two images"""
 
-    def __init__(self, parent, gif, text_area, destroy_widgets):
+    def __init__(self, parent, gif, text_area, destroy_widgets, create_category_page):
         ttk.Frame.__init__(self, parent)
         self.gif = gif
         self.text_area = text_area
@@ -29,10 +29,10 @@ class MainButtonGroup(ttk.Frame):
         # -------------------------------------BUTTONS------------------------------------------------------------------
         self.button1 = ttk.Button(
             self.button_frame,
-            text="Select Random",
+            text="Search By Drink Categories",
             bootstyle="primary-outline",
             width=20,
-            command=lambda: self.replace_widgets()
+            command=create_category_page
         )
         self.button1.grid(row=0, column=0, padx=(0, 20), pady=(0, 10), ipadx=15, ipady=10)
 
@@ -49,7 +49,7 @@ class MainButtonGroup(ttk.Frame):
         # button 3
         self.button3 = ttk.Button(
             self.button_frame,
-            text="Button One",
+            text="Search By First Letter",
             bootstyle="primary-outline",
             width=20
         )
@@ -58,7 +58,7 @@ class MainButtonGroup(ttk.Frame):
         # button 4
         self.button4 = ttk.Button(
             self.button_frame,
-            text="Button Four",
+            text="Search By Ingredient",
             bootstyle="primary-outline",
             width=20
         )
@@ -75,9 +75,3 @@ class MainButtonGroup(ttk.Frame):
 
     # -------------------------------------------METHODS----------------------------------------------------------------
 
-    def replace_widgets(self):
-        # run query
-        # destroy widgets
-        self.gif.destroy()
-        self.text_area.destroy()
-        self.destroy()
