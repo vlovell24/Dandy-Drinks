@@ -10,5 +10,8 @@ I created this as a beginner lesson in accessing api's, retrieving data and maki
 dynamic desktop application with Python and Tkinter. Plus...it has a super cool gif that I 
 embedded into the home page. Gif's are neat, and it makes the application feel more webby.
 
+### Lets's Begin:
+
+
 # CURRENTLY IN PROGRESS!!
 
