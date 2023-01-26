@@ -82,24 +82,12 @@ class Application(ttk.Window):
         else:
             return
 
-    def destroy_random_page(self):
-        """
-        Destroys the random page from the window, and repacks the home pages gif, text and bottom section
-        :return: None; destroys random page and shows home page
-        """
-        self.randomInstance.destroy()
-        self.show_widgets()
-
-    def destroy_category_page(self):
-        """
-        Destroys the category page from the window, and repacks the home page
-        :return: None; destroys category page and shows home page
-        """
-        self.categoryInstance.destroy()
+    def destroy_page(self, instance):
+        instance.destroy()
         self.show_widgets()
 
     def create_random_widgets(self, data):
-        self.randomInstance = RandomPage(self, data, lambda: self.destroy_random_page())
+        self.randomInstance = RandomPage(self, data, lambda: self.destroy_page(self.randomInstance))
         self.randomInstance.pack()
 
     def create_category_page(self):
@@ -108,7 +96,7 @@ class Application(ttk.Window):
         # hide home page widgets
         self.destroy_widgets()
         # show category page
-        self.categoryInstance = CategoryPage(self, category_data, lambda: self.destroy_category_page())
+        self.categoryInstance = CategoryPage(self, category_data, lambda: self.destroy_page(self.categoryInstance))
         self.categoryInstance.pack()
 
     def on_close(self):

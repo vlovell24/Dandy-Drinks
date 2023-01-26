@@ -5,6 +5,7 @@ from Controller.format_image import FormatImage
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_category, return_random_drink
 from Controller.formatted_instructions import FormattedInstructions
+from Controller.update_single_drink import UpdateSingleDrink
 
 
 class CategoryPage(ttk.Frame):
@@ -154,6 +155,13 @@ class CategoryPage(ttk.Frame):
         self.instructions_text['state'] = 'disabled'
 
     def category_change(self, event):
+        """
+        Bound to the category combobox event. When the combobox value changes due to the user selecting a new category,
+        this event fires. First it calls the api with the query of the combobox category value, then changes the values
+        in the second combobox based on the query results. It also clears the default highlighting on the combobox.
+        :param event:
+        :return: None; changes field values
+        """
         # get drink types data
         drinks = return_drinks_by_category(self.category_combobox.get())
         # set values in select drink combobox
@@ -162,36 +170,51 @@ class CategoryPage(ttk.Frame):
         self.select_drink_combobox.current(0)
         # clear the text highlighting ewwww
         self.category_combobox.selection_clear()
-        self.drink_selection_var.set(self.select_drink_combobox.get())
-        drink_name = self.drink_selection_var.get()
-        data = self.return_drink_change(drink_name)
-        self.modify_drink_info(data)
+        self.drink_type_change(None)
 
     def drink_type_change(self, event):
+        """
+        Bound to the drink type combobox BUT also used in the category_change method with a param of None for the event.
+        This method changes sets the value of the drink selection stringvar to the combobox selection, clears the
+        text highlighting in the combobox, gets the drink info from the api and then calls the modify_drink_info
+        method to complete the change on the fields.
+        :param event:
+        :return: None, changes values of fields
+        """
+        # set the drink selection stringvar value
         self.drink_selection_var.set(self.select_drink_combobox.get())
+        # clear the highlighting on the combobox ew
         self.select_drink_combobox.selection_clear()
+        # now query the api for the new drink name
         drink_name = self.drink_selection_var.get()
         data = self.return_drink_change(drink_name)
+        # reset the values on the page
         self.modify_drink_info(data)
 
-    def return_drink_change(self, drink_name):
+    @staticmethod
+    def return_drink_change(drink_name):
+        """
+        returns the drink data from the api
+        :param drink_name:
+        :return: list; drink data
+        """
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
         return return_random_drink(url)
 
     def modify_drink_info(self, data):
-        ingredients = data[6:]
+        """
+        Changes the label values and image for the drink on the screen.
+        :param data: data list from the api
+        :return: None; changes label and image values
+        """
+        # modify the image
         drink_image = FormatImage.format_image(data)
         self.image = drink_image
-        self.drink_name['text'] = data[0]
         self.image_label['image'] = drink_image
-        self.category_text['text'] = data[1]
-        self.alcoholic_text['text'] = data[2]
-        self.glass_text['text'] = data[3]
-        # assign instructions including the ingredients/measurements
-        self.instructions_text['state'] = 'normal'  # enable text field
-        self.instructions_text.delete(1.0, ttk.END)  # delete the contents
-        new_instructions = FormattedInstructions.formatted_instructions(ingredients, data)
-        self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
-        self.instructions_text['state'] = 'disabled'  # disable the text field again
-
-
+        # modify the remaining fields
+        UpdateSingleDrink.update_single_drink(data,
+                                              self.drink_name,
+                                              self.category_text,
+                                              self.alcoholic_text,
+                                              self.glass_text,
+                                              self.instructions_text)
