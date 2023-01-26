@@ -4,7 +4,7 @@ from tkinter import BOTH
 from Controller.format_image import FormatImage
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_category, return_random_drink
-from PIL import Image, ImageTk
+from Controller.formatted_instructions import FormattedInstructions
 
 
 class CategoryPage(ttk.Frame):
@@ -174,7 +174,6 @@ class CategoryPage(ttk.Frame):
         data = self.return_drink_change(drink_name)
         self.modify_drink_info(data)
 
-
     def return_drink_change(self, drink_name):
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
         return return_random_drink(url)
@@ -189,21 +188,10 @@ class CategoryPage(ttk.Frame):
         self.alcoholic_text['text'] = data[2]
         self.glass_text['text'] = data[3]
         # assign instructions including the ingredients/measurements
-        self.instructions_text['state'] = 'normal' # enable text field
-        self.instructions_text.delete(1.0, ttk.END) # delete the contents
-        new_instructions = self.formatted_data_for_instructinos_field(ingredients, data)
+        self.instructions_text['state'] = 'normal'  # enable text field
+        self.instructions_text.delete(1.0, ttk.END)  # delete the contents
+        new_instructions = FormattedInstructions.formatted_instructions(ingredients, data)
         self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
         self.instructions_text['state'] = 'disabled'  # disable the text field again
 
-    def formatted_data_for_instructinos_field(self, ingredient_list, data_list):
-        formatted_instructions = ""
-        for index, ingredient in enumerate(ingredient_list):
-            if index % 2 == 0:
-                formatted_instructions += f"{ingredient[0]}: {ingredient[1]}\t\t\t\t"
-            else:
-                formatted_instructions += f"{ingredient[0]}: {ingredient[1]}\n"
 
-        formatted_instructions += f"\n\n{data_list[5]}"
-        # remove the None values if found in the measurement section. Some ingredients do not have a measurement
-        none_removed = formatted_instructions.replace("None", "")
-        return none_removed

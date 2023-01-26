@@ -1,8 +1,6 @@
-import io
-import urllib.request
+from Controller.formatted_instructions import FormattedInstructions
 from Controller.controller import return_random_drink
 import ttkbootstrap as ttk
-from PIL import Image, ImageTk
 from Controller.format_image import FormatImage
 
 
@@ -125,7 +123,7 @@ class RandomPage(ttk.Frame):
             height=10
         )
         self.instructions_text.pack(fill='both', side='left', expand=True)
-        self.instructions_text.insert(ttk.END, self.formatted_data_for_instructions_field(self.ingredients, self.random_data))
+        self.instructions_text.insert(ttk.END, FormattedInstructions.formatted_instructions(self.ingredients, self.random_data))
         self.instructions_text['state'] = 'disabled'
 
     def shuffle_drink(self):
@@ -156,32 +154,10 @@ class RandomPage(ttk.Frame):
         # assign instructions including the ingredients/measurements
         self.instructions_text['state'] = 'normal'  # enable the text field
         self.instructions_text.delete(1.0, ttk.END)  # delete the contents
-        new_instructions = self.formatted_data_for_instructions_field(ingredients, new_drink_list)
+        new_instructions = FormattedInstructions.formatted_instructions(ingredients, new_drink_list)
         self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
         self.instructions_text['state'] = 'disabled'  # disable the text field again
 
 
-    def formatted_data_for_instructions_field(self, ingredient_list, data_list):
-        """
-        Takes in the ingredient list and the data list. For every two items in the ingredient list, it separates them by
-        tabs. Every third item is put on a new line. These items are appended to the formatted_string variable. After
-        all the ingredients are formatted and appended to the string, the instructions are then added to the string.
-        The final string is looped through one additional time to remove any None values in the ingredient measurement
-        section. The string is then returned to be placed in the label.
-        :param ingredient_list: list of ingredients and measurements
-        :param data_list: entire drink array; we need index 5 for instructions
-        :return: none_removed; a formatted string
-        """
-        formatted_string = ""
-        for index, ingredient in enumerate(ingredient_list):
-            if index % 2 == 0:
-                formatted_string += f"{ingredient[0]}: {ingredient[1]}\t\t\t\t"
-            else:
-                formatted_string += f"{ingredient[0]}: {ingredient[1]}\n"
-
-        formatted_string += f"\n\n{data_list[5]}"
-        # remove the None values if found in the measurement section. Some ingredients do not have a measurement
-        none_removed = formatted_string.replace("None", "")
-        return none_removed
 
 
