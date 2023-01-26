@@ -1,7 +1,7 @@
 import io
 import urllib.request
 from tkinter import BOTH
-
+from Controller.format_image import FormatImage
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_category, return_random_drink
 from PIL import Image, ImageTk
@@ -181,7 +181,7 @@ class CategoryPage(ttk.Frame):
 
     def modify_drink_info(self, data):
         ingredients = data[6:]
-        drink_image = self.format_image(data[4])
+        drink_image = FormatImage.format_image(data)
         self.image = drink_image
         self.drink_name['text'] = data[0]
         self.image_label['image'] = drink_image
@@ -194,16 +194,6 @@ class CategoryPage(ttk.Frame):
         new_instructions = self.formatted_data_for_instructinos_field(ingredients, data)
         self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
         self.instructions_text['state'] = 'disabled'  # disable the text field again
-
-    def format_image(self, data):
-        """formats and returns an image object(only for jpg, png values do not need the io.BytesIO).
-                """
-        with urllib.request.urlopen(data) as u:
-            raw_data = u.read()
-        image = Image.open(io.BytesIO(raw_data))
-        image_resized = image.resize((300, 300), Image.ANTIALIAS)
-        final_image = ImageTk.PhotoImage(image_resized)
-        return final_image
 
     def formatted_data_for_instructinos_field(self, ingredient_list, data_list):
         formatted_instructions = ""

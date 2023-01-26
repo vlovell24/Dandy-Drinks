@@ -3,6 +3,7 @@ import urllib.request
 from Controller.controller import return_random_drink
 import ttkbootstrap as ttk
 from PIL import Image, ImageTk
+from Controller.format_image import FormatImage
 
 
 class RandomPage(ttk.Frame):
@@ -44,7 +45,7 @@ class RandomPage(ttk.Frame):
         )
         self.drink_name.grid(row=0, column=1, sticky='ew')
         # ----------------------------------------------------------DRINK IMAGE-----------------------------------------
-        self.image = self.format_image(self.random_data)
+        self.image = FormatImage.format_image(self.random_data)
         self.image_label = ttk.Label(
             self,
             image=self.image,
@@ -142,7 +143,7 @@ class RandomPage(ttk.Frame):
         ingredients = new_drink_list[6:]
         # change drink name
         self.drink_name['text'] = new_drink_list[0]
-        new_image = self.format_image(new_drink_list)
+        new_image = FormatImage.format_image(new_drink_list)
         # now assign the image to the image label
         self.image = new_image  # reassign image variable
         self.image_label['image'] = new_image  # set new image to the label
@@ -159,15 +160,6 @@ class RandomPage(ttk.Frame):
         self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
         self.instructions_text['state'] = 'disabled'  # disable the text field again
 
-    def format_image(self, data_array):
-        """formats and returns an image object(only for jpg, png values do not need the io.BytesIO).
-        """
-        with urllib.request.urlopen(data_array[4]) as u:
-            raw_data = u.read()
-        image = Image.open(io.BytesIO(raw_data))
-        image_resized = image.resize((300, 300), Image.ANTIALIAS)
-        image = ImageTk.PhotoImage(image_resized)
-        return image
 
     def formatted_data_for_instructions_field(self, ingredient_list, data_list):
         """

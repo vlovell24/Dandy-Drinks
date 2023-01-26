@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 import requests
 
 
@@ -10,7 +9,6 @@ def return_random_drink(url):
     return list.
     :return: List; return_array
     """
-    # url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'  # search by random
     return_array = []
     ingredient_array = []
     try:
