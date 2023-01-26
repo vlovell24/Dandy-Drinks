@@ -10,13 +10,21 @@ from PIL import Image, ImageTk
 class CategoryPage(ttk.Frame):
     """Layout for the category page"""
 
-    def __init__(self, parent, category_data):
+    def __init__(self, parent, category_data, destroy_page_method):
         ttk.Frame.__init__(self, parent)
         self.category_data = category_data  # categories list
         # -----------------------------------------FRAME FOR TOP DROPDOWNS----------------------------------------------
         self.dropdown_frame = ttk.Frame(self)
         self.dropdown_frame.grid(row=0, column=0, sticky='nsew')
         self.dropdown_frame.columnconfigure(0, weight=1)
+        # --------------------------------------------HOME BUTTON-------------------------------------------------------
+        self.home_button = ttk.Button(
+            self.dropdown_frame,
+            bootstyle='dark',
+            text="Home",
+            command=destroy_page_method
+        )
+        self.home_button.grid(row=0, column=0, sticky='e')
         # -----------------------------------------DROPDOWN ONE/CATEGORIES----------------------------------------------
         self.category_combobox_label = ttk.Label(
             self.dropdown_frame,
@@ -81,7 +89,7 @@ class CategoryPage(ttk.Frame):
         )
         self.image_label.pack(ipadx=20, ipady=10, side='left')
         # ----------------------------------------------------RIGHT INFORMATION FRAME-----------------------------------
-        self.info_frame = ttk.Frame(self.bottom_frame, borderwidth=2, relief="solid")
+        self.info_frame = ttk.Frame(self.bottom_frame)
         self.info_frame.pack(side='left', expand=True, fill=BOTH)
         # ----------------------------------------------------CATEGORY LABELFRAME---------------------------------------
         self.category_label = ttk.LabelFrame(
@@ -172,11 +180,20 @@ class CategoryPage(ttk.Frame):
         return return_random_drink(url)
 
     def modify_drink_info(self, data):
-        print(data[4])
+        ingredients = data[6:]
         drink_image = self.format_image(data[4])
         self.image = drink_image
         self.drink_name['text'] = data[0]
         self.image_label['image'] = drink_image
+        self.category_text['text'] = data[1]
+        self.alcoholic_text['text'] = data[2]
+        self.glass_text['text'] = data[3]
+        # assign instructions including the ingredients/measurements
+        self.instructions_text['state'] = 'normal' # enable text field
+        self.instructions_text.delete(1.0, ttk.END) # delete the contents
+        new_instructions = self.formatted_data_for_instructinos_field(ingredients, data)
+        self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
+        self.instructions_text['state'] = 'disabled'  # disable the text field again
 
     def format_image(self, data):
         """formats and returns an image object(only for jpg, png values do not need the io.BytesIO).
@@ -187,3 +204,16 @@ class CategoryPage(ttk.Frame):
         image_resized = image.resize((300, 300), Image.ANTIALIAS)
         final_image = ImageTk.PhotoImage(image_resized)
         return final_image
+
+    def formatted_data_for_instructinos_field(self, ingredient_list, data_list):
+        formatted_instructions = ""
+        for index, ingredient in enumerate(ingredient_list):
+            if index % 2 == 0:
+                formatted_instructions += f"{ingredient[0]}: {ingredient[1]}\t\t\t\t"
+            else:
+                formatted_instructions += f"{ingredient[0]}: {ingredient[1]}\n"
+
+        formatted_instructions += f"\n\n{data_list[5]}"
+        # remove the None values if found in the measurement section. Some ingredients do not have a measurement
+        none_removed = formatted_instructions.replace("None", "")
+        return none_removed

@@ -23,7 +23,7 @@ class Application(ttk.Window):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.randomInstance = None  # used to destroy the Random Page
-        self.categoryInstance = None # used to destroy the Category Page
+        self.categoryInstance = None  # used to destroy the Category Page
         # --------------------------------SET THEME AND DISABLE CLOSE BUTTON--------------------------------------------
         self.style.theme_use('united')
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -90,6 +90,14 @@ class Application(ttk.Window):
         self.randomInstance.destroy()
         self.show_widgets()
 
+    def destroy_category_page(self):
+        """
+        Destroys the category page from the window, and repacks the home page
+        :return: None; destroys category page and shows home page
+        """
+        self.categoryInstance.destroy()
+        self.show_widgets()
+
     def create_random_widgets(self, data):
         self.randomInstance = RandomPage(self, data, lambda: self.destroy_random_page())
         self.randomInstance.pack()
@@ -100,7 +108,7 @@ class Application(ttk.Window):
         # hide home page widgets
         self.destroy_widgets()
         # show category page
-        self.categoryInstance = CategoryPage(self, category_data)
+        self.categoryInstance = CategoryPage(self, category_data, lambda: self.destroy_category_page())
         self.categoryInstance.pack()
 
     def on_close(self):

@@ -53,6 +53,12 @@ Clicking on the :house: Home button will return the user to the Home page of the
 <img src="readme_images/dandy_shuffle.png" alt="random shuffle" style="width: 500px;"/>
 </p>
   
+Clicking on the Search By Drink Categories will open a new page as seen below:
+
+<p float="left">
+<img src="readme_images/dandy_category.png" alt="random shuffle" style="width: 500px;"/>
+</p>
+
 
 ## Additional Notes :ledger:
 - :computer: The GUI for this application is made with Tkinter and TTKBootstrap
