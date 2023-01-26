@@ -138,7 +138,8 @@ class RandomPage(ttk.Frame):
         area in the application.
         :return: None; formats the text, and image fields in the application.
         """
-        new_drink_list = return_random_drink()
+        url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+        new_drink_list = return_random_drink(url)
         ingredients = new_drink_list[6:]
         # change drink name
         self.drink_name['text'] = new_drink_list[0]

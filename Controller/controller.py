@@ -3,14 +3,14 @@ from pathlib import Path
 import requests
 
 
-def return_random_drink():
+def return_random_drink(url):
     """
     Opens the api and gets a random drink. Once the data is recieved, it must be parsed. It is loaded into a list for
     return. The ingredients and measurements are seperate values and must be forced together and then appended to the
     return list.
     :return: List; return_array
     """
-    url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'  # search by random
+    # url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'  # search by random
     return_array = []
     ingredient_array = []
     try:
@@ -88,3 +88,4 @@ def return_drinks_by_category(category):
         return None
 
     return return_array
+

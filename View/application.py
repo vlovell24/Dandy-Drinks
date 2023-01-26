@@ -1,4 +1,3 @@
-from tkinter import BOTH, YES
 from View.home_button_frame import MainButtonGroup
 from Controller.controller import return_random_drink, return_categories
 import ttkbootstrap as ttk
@@ -74,7 +73,8 @@ class Application(ttk.Window):
 
     def create_random_page(self):
         # get the random drink data that we want to append to the application window
-        random_data = return_random_drink()
+        url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
+        random_data = return_random_drink(url)
         if random_data:  # if we can connect to the interwebz
             self.destroy_widgets()
             # create random page
