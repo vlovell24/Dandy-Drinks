@@ -50,7 +50,7 @@ Clicking on the :twisted_rightwards_arrows: Shuffle New Random Drink Button will
 Clicking on the :house: Home button will return the user to the Home page of the application.
 
 <p float="left">
-<img src="readme_images/shuffle.png" alt="random shuffle" style="width: 500px;"/>
+<img src="readme_images/dandy_shuffle.png" alt="random shuffle" style="width: 500px;"/>
 </p>
   
 
