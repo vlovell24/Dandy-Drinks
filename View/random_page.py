@@ -2,6 +2,7 @@ from Controller.formatted_instructions import FormattedInstructions
 from Controller.controller import return_random_drink
 import ttkbootstrap as ttk
 from Controller.format_image import FormatImage
+from Controller.update_single_drink import UpdateSingleDrink
 
 
 class RandomPage(ttk.Frame):
@@ -131,32 +132,22 @@ class RandomPage(ttk.Frame):
         shuffles the drink in the window by calling the return_random_drink method (this returns an array). We then take
         the new drink and separate the ingredients portion of the object. With these two arrays, we can then set the
         labels and image in the application to the new values. The new image must be run through the format_image method
-        before it can be assigned to the image label. We also need to run the new_drink_list and ingredients through the
-        formatted_data_for_instructions_field method that will format the return data correctly to place into the text
-        area in the application.
+        before it can be assigned to the image label. The utility class UpdateSingleDrink is used to format each of the
+        text fields for the single drink. The image cannot be updated in the utility class as it must be reassiged
+        before it is set.
         :return: None; formats the text, and image fields in the application.
         """
         url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
         new_drink_list = return_random_drink(url)
-        ingredients = new_drink_list[6:]
-        # change drink name
-        self.drink_name['text'] = new_drink_list[0]
         new_image = FormatImage.format_image(new_drink_list)
-        # now assign the image to the image label
         self.image = new_image  # reassign image variable
         self.image_label['image'] = new_image  # set new image to the label
-        # assign category
-        self.category_text['text'] = new_drink_list[1]
-        # assign alcoholic/non
-        self.alcoholic_text['text'] = new_drink_list[2]
-        # assign glass type
-        self.glasstype_text['text'] = new_drink_list[3]
-        # assign instructions including the ingredients/measurements
-        self.instructions_text['state'] = 'normal'  # enable the text field
-        self.instructions_text.delete(1.0, ttk.END)  # delete the contents
-        new_instructions = FormattedInstructions.formatted_instructions(ingredients, new_drink_list)
-        self.instructions_text.insert(ttk.END, new_instructions)  # replace the contents
-        self.instructions_text['state'] = 'disabled'  # disable the text field again
+        UpdateSingleDrink.update_single_drink(new_drink_list,
+                                              self.drink_name,
+                                              self.category_text,
+                                              self.alcoholic_text,
+                                              self.glasstype_text,
+                                              self.instructions_text)
 
 
 

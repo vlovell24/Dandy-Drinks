@@ -1,5 +1,4 @@
 
-
 class FormattedInstructions:
     """A utility class for formatting the instructions field text correctly"""
     @staticmethod
