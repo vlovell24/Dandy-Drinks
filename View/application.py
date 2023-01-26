@@ -4,7 +4,7 @@ from Controller.controller import return_random_drink, return_categories
 import ttkbootstrap as ttk
 from Images import LOGO
 from View.title_bar import TitleBar
-from View.gif import AnimatedGif
+from View.main_image import MainImage
 from View.home_text import HomeText
 from View.random_page import RandomPage
 from View.category_page import CategoryPage
@@ -45,7 +45,7 @@ class Application(ttk.Window):
         self.title_bar = TitleBar(self)
         self.title_bar.pack(fill='x')
         # --------------------------------------GIF---------------------------------------------------------------------
-        self.gif = AnimatedGif(self)
+        self.gif = MainImage(self)
         self.gif.pack()
         # --------------------------------------HOME TEXT---------------------------------------------------------------
         self.home_text = HomeText(self)

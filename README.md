@@ -7,12 +7,11 @@ by glass type :tumbler_glass:, alcohol :beers:, alcoholic/non-alcoholic :bubble_
 
 ### :question: Why?
 I created this as a beginner lesson in accessing api's, retrieving data and making a fully 
-dynamic desktop application with Python and Tkinter. Plus...it has a super cool gif that I 
-embedded into the home page. Gif's are neat, and it makes the application feel more webby.
+dynamic desktop application with Python and Tkinter. 
 
 ### Lets's Begin:
 
-The application opens to a 'home page' screen with and animated, scrolling GIF at the top,
+The application opens to a 'home page' screen with a banner image near the top of the page,
 and four buttons at the bottom of the page labeled as:
 - :mag: Search By Drink Categories
 - :mag: Select Random
@@ -20,20 +19,20 @@ and four buttons at the bottom of the page labeled as:
 - :mag: Search By Ingredient
 
 <p float="left">
-<img src="readme_images/home_page.png" alt="home page" style="width: 500px;"/>
+<img src="readme_images/dandy_home.png" alt="home page" style="width: 500px;"/>
 </p>
 
 ### Select Random Button
 
 <p float="left">
-<img src="readme_images/random_button.png" alt="random button" style="width: 200px;"/>
+<img src="readme_images/button_random.png" alt="random button" style="width: 200px;"/>
 </p>
 
 When clicked, the Select Random button opens a new 'page' in the application that displays a
 random drink brought back from the api. 
 
 <p float="left">
-<img src="readme_images/random.png" alt="random page" style="width: 500px;"/>
+<img src="readme_images/dandy_random.png" alt="random page" style="width: 500px;"/>
 </p>
 
 The random page displays the following information:

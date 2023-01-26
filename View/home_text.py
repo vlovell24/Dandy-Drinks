@@ -18,7 +18,8 @@ class HomeText(ttk.Frame):
                  "about the random? Make a selection below, choose by "
                  "ingredient,\n glass type, non-alcoholic or just generate a "
                  "random recipe. It's\n all in your hands.",
-            font=("Comic Sans MS", 16, "bold"),
-            anchor='center'
+            font=("Ariel", 16),
+            anchor='center',
+            bootstyle="info"
         )
         self.text_label.pack(fill=BOTH, pady=20, expand=True)

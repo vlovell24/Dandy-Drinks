@@ -68,7 +68,7 @@ class RandomPage(ttk.Frame):
         self.drink_category = ttk.LabelFrame(
             self.left_frame,
             text="Drink Category",
-            bootstyle='success'
+            bootstyle='info'
         )
         self.drink_category.grid(row=0, column=0, padx=(0, 20))
 
@@ -84,7 +84,7 @@ class RandomPage(ttk.Frame):
         self.alcoholic = ttk.LabelFrame(
             self.left_frame,
             text="Alcoholic or Non",
-            bootstyle='success'
+            bootstyle='info'
         )
         self.alcoholic.grid(row=1, column=0, padx=(0, 20), pady=5)
         # ------------------------------------------------------ALCOHOLIC LABELFRAME TEXT-------------------------------
@@ -99,7 +99,7 @@ class RandomPage(ttk.Frame):
         self.glasstype = ttk.LabelFrame(
             self.left_frame,
             text="Glass Type",
-            bootstyle='success'
+            bootstyle='info'
         )
         self.glasstype.grid(row=2, column=0, padx=(0, 20), pady=(0, 5))
         # -----------------------------------------------------GLASS TYPE TEXT------------------------------------------
@@ -114,7 +114,7 @@ class RandomPage(ttk.Frame):
         self.instructions = ttk.LabelFrame(
             self.right_frame,
             text="Instructions",
-            bootstyle='success'
+            bootstyle='info'
         )
         self.instructions.grid(row=0, column=1)
 

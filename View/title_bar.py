@@ -1,12 +1,12 @@
 from tkinter import ttk
 from PIL import Image, ImageTk
-from Images import HEADER
+from Images import BANNER
 
 
 class TitleBar(ttk.Frame):
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)
-        self.image_raw = Image.open(HEADER)
+        self.image_raw = Image.open(BANNER)
         self.image_resize = self.image_raw.resize((820, 100), Image.ANTIALIAS)
         self.resized_image = ImageTk.PhotoImage(self.image_resize)
         self.title_label = ttk.Label(

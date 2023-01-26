@@ -3,7 +3,8 @@ from pathlib import Path
 IMAGE_DIRECTORY = Path(__file__).parent
 
 LOGO = IMAGE_DIRECTORY / "drink_logo.png"
-HEADER = IMAGE_DIRECTORY / "header.png"
-GIF = IMAGE_DIRECTORY / "alcohol_gif.gif"
-LEFT_IMAGE = IMAGE_DIRECTORY / "left_image.png"
-RIGHT_IMAGE = IMAGE_DIRECTORY / "right_side_image.png"
+COFFEE = IMAGE_DIRECTORY / "coffee_cup.png"
+BANNER = IMAGE_DIRECTORY / "title_banner.png"
+MAIN = IMAGE_DIRECTORY / "main_image.png"
+RIGHT_DRINK = IMAGE_DIRECTORY / "right_drink.png"
+LEFT_DRINK = IMAGE_DIRECTORY / "left_drink.png"
