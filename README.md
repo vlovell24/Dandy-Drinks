@@ -56,8 +56,18 @@ Clicking on the :house: Home button will return the user to the Home page of the
 Clicking on the Search By Drink Categories will open a new page as seen below:
 
 <p float="left">
-<img src="readme_images/dandy_category.png" alt="random shuffle" style="width: 500px;"/>
+<img src="readme_images/dandy_category.png" alt="category page" style="width: 500px;"/>
 </p>
+
+The category page contains the following:
+- A drink category dropdown
+- A drink dropdown
+- A home button
+
+The page is fully dynamic, therefore when a new drink category is selected, the default first
+value is shown in the dropdown below, and the page changes to that drink. When a new drink is
+selected, the page also changes to the newly selected drink. The user may go back to the home page at any time
+by clicking the home button.
 
 
 ## Additional Notes :ledger:
