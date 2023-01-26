@@ -1,3 +1,6 @@
+import io
+import urllib.request
+from tkinter import BOTH
 
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_category, return_random_drink
@@ -9,7 +12,7 @@ class CategoryPage(ttk.Frame):
 
     def __init__(self, parent, category_data):
         ttk.Frame.__init__(self, parent)
-        self.category_data = category_data
+        self.category_data = category_data  # categories list
         # -----------------------------------------FRAME FOR TOP DROPDOWNS----------------------------------------------
         self.dropdown_frame = ttk.Frame(self)
         self.dropdown_frame.grid(row=0, column=0, sticky='nsew')
@@ -54,6 +57,94 @@ class CategoryPage(ttk.Frame):
         # create a default drink when page loads, defaults to whatever is in the combobox
         self.bind("<Visibility>", self.drink_type_change)
 
+        # ------------------------------------------------------DRINK NAME----------------------------------------------
+        self.drink_name = ttk.Label(
+            self.dropdown_frame,
+            bootstyle='info',
+            font=("Comic Sans MS", 20, "bold")
+        )
+        self.drink_name.grid(row=4, column=0, pady=20)
+        # ----------------------------------------------------BOTTOM FRAME----------------------------------------------
+        self.bottom_frame = ttk.Frame(self)
+        self.bottom_frame.grid(row=1, column=0, sticky='nsew')
+
+        # ----------------------------------------------------LEFT DRINK IMAGE FRAME------------------------------------
+        self.drink_image_frame = ttk.Frame(self.bottom_frame)
+        self.drink_image_frame.pack(side='left', expand=True, fill=BOTH)
+        # -------------------------------------------------------DRINK IMAGE--------------------------------------------
+        self.image = ''
+        self.image_label = ttk.Label(
+            self.bottom_frame,
+            bootstyle='inverse-secondary',
+            anchor='center',
+            image=self.image
+        )
+        self.image_label.pack(ipadx=20, ipady=10, side='left')
+        # ----------------------------------------------------RIGHT INFORMATION FRAME-----------------------------------
+        self.info_frame = ttk.Frame(self.bottom_frame, borderwidth=2, relief="solid")
+        self.info_frame.pack(side='left', expand=True, fill=BOTH)
+        # ----------------------------------------------------CATEGORY LABELFRAME---------------------------------------
+        self.category_label = ttk.LabelFrame(
+            self.info_frame,
+            text="Drink Category",
+            bootstyle='info'
+        )
+        self.category_label.grid(row=0, column=0, pady=(10, 10), padx=20, sticky='ew')
+        # ----------------------------------------------------CATEGORY TEXT---------------------------------------------
+        self.category_text = ttk.Label(
+            self.category_label,
+            text="Testing here",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.category_text.pack(fill='x', side='top', expand=True)
+        # ----------------------------------------------------ALCOHOLIC LABELFRAME--------------------------------------
+        self.alcoholic = ttk.LabelFrame(
+            self.info_frame,
+            text="Alcoholic or Non",
+            bootstyle='info'
+        )
+        self.alcoholic.grid(row=1, column=0, pady=(0, 10), padx=(20, 20), sticky='ew')
+        # -------------------------------------------------------ALCOHOLIC TEXT-----------------------------------------
+        self.alcoholic_text = ttk.Label(
+            self.alcoholic,
+            text="Testing alcohol",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.alcoholic_text.pack(fill='x', side='top', expand=True)
+        # --------------------------------------------------GLASS TYPE LABELFRAME---------------------------------------
+        self.glass_frame = ttk.LabelFrame(
+            self.info_frame,
+            text="Glass Type",
+            bootstyle='info'
+        )
+        self.glass_frame.grid(row=2, column=0, pady=(0, 10), padx=20, sticky='ew')
+        # ----------------------------------------------------GLASS TEXT------------------------------------------------
+        self.glass_text = ttk.Label(
+            self.glass_frame,
+            text="Testing glass",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.glass_text.pack(fill='x', side='top', expand=True)
+        # ------------------------------------------------INSTRUCTIONS LABELFRAME---------------------------------------
+        self.instructions_frame = ttk.LabelFrame(
+            self.info_frame,
+            text="Instructions",
+            bootstyle='info'
+        )
+        self.instructions_frame.grid(row=3, column=0, pady=(0, 10), padx=20, sticky='ew')
+        # ----------------------------------------------INSTRUCTIONS TEXT-----------------------------------------------
+        self.instructions_text = ttk.Text(
+            self.instructions_frame,
+            wrap="word",
+            width=50,
+            height=12
+        )
+        self.instructions_text.pack(fill=BOTH, side='top', expand=True)
+        self.instructions_text['state'] = 'disabled'
+
     def category_change(self, event):
         # get drink types data
         drinks = return_drinks_by_category(self.category_combobox.get())
@@ -65,14 +156,34 @@ class CategoryPage(ttk.Frame):
         self.category_combobox.selection_clear()
         self.drink_selection_var.set(self.select_drink_combobox.get())
         drink_name = self.drink_selection_var.get()
-        self.return_drink_change(drink_name)
+        data = self.return_drink_change(drink_name)
+        self.modify_drink_info(data)
 
     def drink_type_change(self, event):
         self.drink_selection_var.set(self.select_drink_combobox.get())
         self.select_drink_combobox.selection_clear()
         drink_name = self.drink_selection_var.get()
-        self.return_drink_change(drink_name)
+        data = self.return_drink_change(drink_name)
+        self.modify_drink_info(data)
+
 
     def return_drink_change(self, drink_name):
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
-        print(return_random_drink(url))
+        return return_random_drink(url)
+
+    def modify_drink_info(self, data):
+        print(data[4])
+        drink_image = self.format_image(data[4])
+        self.image = drink_image
+        self.drink_name['text'] = data[0]
+        self.image_label['image'] = drink_image
+
+    def format_image(self, data):
+        """formats and returns an image object(only for jpg, png values do not need the io.BytesIO).
+                """
+        with urllib.request.urlopen(data) as u:
+            raw_data = u.read()
+        image = Image.open(io.BytesIO(raw_data))
+        image_resized = image.resize((300, 300), Image.ANTIALIAS)
+        final_image = ImageTk.PhotoImage(image_resized)
+        return final_image

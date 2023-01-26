@@ -40,7 +40,6 @@ class RandomPage(ttk.Frame):
             self.top_frame,
             text=random_data[0],
             font=("Comic Sans MS", 20, "bold"),
-            # anchor='center',
             bootstyle="info"
         )
         self.drink_name.grid(row=0, column=1, sticky='ew')
