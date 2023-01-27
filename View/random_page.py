@@ -5,8 +5,10 @@ from Controller.format_image import FormatImage
 from Controller.update_single_drink import UpdateSingleDrink
 
 
-class RandomPage(ttk.Frame):
-    """Layout for the random drink page"""
+class RandomPage(ttk.Frame, UpdateSingleDrink, FormattedInstructions, FormatImage):
+    """Layout for the random drink page, inherits from ttk.Frame, the mixin UpdateSingleDrink, the mixin
+       FormattedInstructions, and the mixin FormatImage
+    """
 
     def __init__(self, parent, random_data, home_page):  # home page is a method to go back to the home page
         ttk.Frame.__init__(self, parent)
@@ -124,31 +126,24 @@ class RandomPage(ttk.Frame):
             height=10
         )
         self.instructions_text.pack(fill='both', side='left', expand=True)
-        self.instructions_text.insert(ttk.END, FormattedInstructions.formatted_instructions(self.ingredients, self.random_data))
+        self.instructions_text.insert(ttk.END,
+                                      self.formatted_instructions(self.ingredients, self.random_data))
         self.instructions_text['state'] = 'disabled'
 
     def shuffle_drink(self):
         """
-        shuffles the drink in the window by calling the return_random_drink method (this returns an array). We then take
-        the new drink and separate the ingredients portion of the object. With these two arrays, we can then set the
-        labels and image in the application to the new values. The new image must be run through the format_image method
-        before it can be assigned to the image label. The utility class UpdateSingleDrink is used to format each of the
-        text fields for the single drink. The image cannot be updated in the utility class as it must be reassiged
-        before it is set.
-        :return: None; formats the text, and image fields in the application.
+        shuffles the drink in the window by calling the return_random_drink method (this returns an array).
+        :return: None; formats the text, and image fields in the application. The format image method is called from the
+        format_image mixin which formats the jpg image. This is then returned and set in this method (it cannot be done
+        outside the class). The update_single_drink method is then called, which formats the remaining widgets.
         """
-        url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
-        new_drink_list = return_random_drink(url)
-        new_image = FormatImage.format_image(new_drink_list)
+        new_drink_list = return_random_drink()
+        new_image = self.format_image(new_drink_list)
         self.image = new_image  # reassign image variable
         self.image_label['image'] = new_image  # set new image to the label
-        UpdateSingleDrink.update_single_drink(new_drink_list,
-                                              self.drink_name,
-                                              self.category_text,
-                                              self.alcoholic_text,
-                                              self.glasstype_text,
-                                              self.instructions_text)
-
-
-
-
+        self.update_single_drink(new_drink_list,
+                                 self.drink_name,
+                                 self.category_text,
+                                 self.alcoholic_text,
+                                 self.glasstype_text,
+                                 self.instructions_text)

@@ -1,15 +1,14 @@
-import io
-import urllib.request
 from tkinter import BOTH
 from Controller.format_image import FormatImage
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_category, return_random_drink
-from Controller.formatted_instructions import FormattedInstructions
 from Controller.update_single_drink import UpdateSingleDrink
 
 
-class CategoryPage(ttk.Frame):
-    """Layout for the category page"""
+class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
+    """Layout for the category page. Inherits from ttk.Frame, the mixin UpdateSingleDrink, and the mixin
+       FormatImage
+    """
 
     def __init__(self, parent, category_data, destroy_page_method):
         ttk.Frame.__init__(self, parent)
@@ -199,7 +198,7 @@ class CategoryPage(ttk.Frame):
         :return: list; drink data
         """
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
-        return return_random_drink(url)
+        return return_random_drink(new_url=url)
 
     def modify_drink_info(self, data):
         """
@@ -208,13 +207,13 @@ class CategoryPage(ttk.Frame):
         :return: None; changes label and image values
         """
         # modify the image
-        drink_image = FormatImage.format_image(data)
+        drink_image = self.format_image(data)
         self.image = drink_image
         self.image_label['image'] = drink_image
         # modify the remaining fields
-        UpdateSingleDrink.update_single_drink(data,
-                                              self.drink_name,
-                                              self.category_text,
-                                              self.alcoholic_text,
-                                              self.glass_text,
-                                              self.instructions_text)
+        self.update_single_drink(data,
+                                 self.drink_name,
+                                 self.category_text,
+                                 self.alcoholic_text,
+                                 self.glass_text,
+                                 self.instructions_text)

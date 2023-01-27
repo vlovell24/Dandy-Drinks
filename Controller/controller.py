@@ -2,19 +2,22 @@ import json
 import requests
 
 
-def return_random_drink(url):
+def return_random_drink(new_url=""):
     """
     Opens the api and gets a random drink. Once the data is recieved, it must be parsed. It is loaded into a list for
     return. The ingredients and measurements are seperate values and must be forced together and then appended to the
     return list.
     :return: List; return_array
     """
+    if new_url != "":
+        url = new_url
+    else:
+        url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
     return_array = []
     ingredient_array = []
     try:
         data = requests.get(url)
         drinks = json.loads(data.text)
-        # print(drinks)
         for array in (drinks["drinks"]):
             return_array.extend([
                 array['strDrink'],

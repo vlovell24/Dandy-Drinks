@@ -7,6 +7,7 @@ from View.main_image import MainImage
 from View.home_text import HomeText
 from View.random_page import RandomPage
 from View.category_page import CategoryPage
+from View.alphabetical_page import AlphabeticalPage
 
 
 class Application(ttk.Window):
@@ -22,8 +23,7 @@ class Application(ttk.Window):
     # ------------------------------------CONSTRUCTOR-------------------------------------------------------------------
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.randomInstance = None  # used to destroy the Random Page
-        self.categoryInstance = None  # used to destroy the Category Page
+        self.instance = None  # used to destroy the pages
         # --------------------------------SET THEME AND DISABLE CLOSE BUTTON--------------------------------------------
         self.style.theme_use('united')
         self.protocol("WM_DELETE_WINDOW", self.on_close)
@@ -50,7 +50,12 @@ class Application(ttk.Window):
         self.home_text = HomeText(self)
         self.home_text.pack()
         # --------------------------------------- BOTTOM BUTTONS AND IMAGES---------------------------------------------
-        self.bottom_section = MainButtonGroup(self, self.gif, self.home_text, lambda: self.create_random_page(), lambda: self.create_category_page())
+        self.bottom_section = MainButtonGroup(self,
+                                              self.gif,
+                                              self.home_text,
+                                              lambda: self.create_page("random"),
+                                              lambda: self.create_page("category"),
+                                              lambda: self.create_page("alphabetical"))
         self.bottom_section.pack(fill='x')
 
     def destroy_widgets(self):
@@ -71,33 +76,26 @@ class Application(ttk.Window):
         self.home_text.pack()
         self.bottom_section.pack(fill='x')
 
-    def create_random_page(self):
-        # get the random drink data that we want to append to the application window
-        url = 'https://www.thecocktaildb.com/api/json/v1/1/random.php'
-        random_data = return_random_drink(url)
-        if random_data:  # if we can connect to the interwebz
-            self.destroy_widgets()
-            # create random page
-            self.create_random_widgets(random_data)
-        else:
-            return
-
     def destroy_page(self, instance):
         instance.destroy()
         self.show_widgets()
 
-    def create_random_widgets(self, data):
-        self.randomInstance = RandomPage(self, data, lambda: self.destroy_page(self.randomInstance))
-        self.randomInstance.pack()
-
-    def create_category_page(self):
-        # get categories
-        category_data = return_categories()
-        # hide home page widgets
-        self.destroy_widgets()
-        # show category page
-        self.categoryInstance = CategoryPage(self, category_data, lambda: self.destroy_page(self.categoryInstance))
-        self.categoryInstance.pack()
+    def create_page(self, page):
+        """Used to create additional pages"""
+        try:
+            if page == "random":
+                data = return_random_drink()
+                self.instance = RandomPage(self, data, lambda: self.destroy_page(self.instance))
+            elif page == "category":
+                data = return_categories()
+                self.instance = CategoryPage(self, data, lambda: self.destroy_page(self.instance))
+            elif page == "alphabetical":
+                data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+                self.instance = AlphabeticalPage(self, data, lambda: self.destroy_page(self.instance))
+            self.destroy_widgets()
+            self.instance.pack()
+        except Exception:
+            return
 
     def on_close(self):
         """Use to create custom close later"""

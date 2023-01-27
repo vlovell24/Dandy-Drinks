@@ -1,6 +1,6 @@
 
 class FormattedInstructions:
-    """A utility class for formatting the instructions field text correctly"""
+    """A utility class/Mixin for formatting the instructions field text correctly"""
     @staticmethod
     def formatted_instructions(ingredients, data):
         formatted_instructions = ""

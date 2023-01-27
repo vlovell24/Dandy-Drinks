@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 
 
 class FormatImage:
-    """A utility class for formatting the .jpg images that come back from the api"""
+    """A utility class/mixin for formatting the .jpg images that come back from the api"""
     @staticmethod
     def format_image(data):
         with urllib.request.urlopen(data[4]) as u:
