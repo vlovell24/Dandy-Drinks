@@ -90,3 +90,16 @@ def return_drinks_by_category(category):
 
     return return_array
 
+
+def return_drinks_by_letter(letter):
+    url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?f={letter}'
+    return_array = []
+    try:
+        data = requests.get(url)
+        drinks = json.loads(data.text)
+        for array in (drinks["drinks"]):
+            return_array.append(array['strDrink'])
+    except BaseException:
+        return None
+
+    return return_array
