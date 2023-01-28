@@ -41,10 +41,10 @@ The random page displays the following information:
 - :house: A Home Button at the top of the page
 - :tropical_drink: An image of the drink 
 - Fields for:
-  - Drink Category
-  - Alcoholic or Non-Alcoholic
-  - Glass Type
-  - Instructions for making the drink including ingredients and measurements
+  - :beer: Drink Category
+  - :tropical_drink: Alcoholic or Non-Alcoholic
+  - :cocktail: Glass Type
+  - :page_with_curl: Instructions for making the drink including ingredients and measurements
 
 Clicking on the :twisted_rightwards_arrows: Shuffle New Random Drink Button will return a new random drink.
 Clicking on the :house: Home button will return the user to the Home page of the application.
@@ -53,44 +53,44 @@ Clicking on the :house: Home button will return the user to the Home page of the
 <img src="readme_images/dandy_shuffle.png" alt="random shuffle" style="width: 500px;"/>
 </p>
   
-### SEARCH BY DRINK CATEGORIES
+### :tumbler_glass: SEARCH BY DRINK CATEGORIES
 
 <p float="left">
 <img src="readme_images/dandy_category.png" alt="category page" style="width: 500px;"/>
 </p>
 
 The category page contains the following:
-- A drink category dropdown
-- A drink dropdown
-- A home button
+- :tumbler_glass: A drink category dropdown
+- :wine_glass: A drink dropdown
+- :house: A home button
 
 The page is fully dynamic, therefore when a new drink category is selected, the default first
 value is shown in the dropdown below, and the page changes to that drink. When a new drink is
 selected, the page also changes to the newly selected drink. The user may go back to the home page at any time
 by clicking the home button.
 
-### SEARCH BY FIRST LETTER
+### :abc: SEARCH BY FIRST LETTER
 
 <p float="left">
 <img src="readme_images/search_alphabetical.png" alt="alphabet page" style="width: 500px;"/>
 </p>
 
 The search by first letter page opens a new application page with two dropdowns:
-- Select a Letter (alphabetical dropdown)
-- Select a Drink (Select drink)
+- :abc: Select a Letter (alphabetical dropdown)
+- :tropical_drink: Select a Drink (Select drink)
 This page is also fully dynamic, and when a letter is selected, the select drink dropdown will query the api for the 
 letter selected, and return all drinks starting with that letter, in the select a drink dropdown. When a drink is selected
 the page will change with that drinks values.
 
-### SEARCH BY INGREDIENT
+### :cook: SEARCH BY INGREDIENT
 
 <p float="left">
 <img src="readme_images/search_ingredient.png" alt="alphabet page" style="width: 500px;"/>
 </p>
 
 The search by ingredient page opens a new application page with two dropdowns:
-- Select a Ingredient
-- Select a Drink
+- :shallow_pan_of_food: Select a Ingredient
+- :tropical_drink:Select a Drink
 This page is fully dynamic and when an ingredient is selected, the select drink dropdown will query the api and change the
 second select drink dropdown. Once a new drink is selected from this dropdown, the page will update with the new values. 
 ## Additional Notes :ledger:
