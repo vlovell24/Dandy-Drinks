@@ -7,7 +7,7 @@ from Images import LEFT_DRINK
 class MainButtonGroup(ttk.Frame):
     """group of four buttons and two images"""
 
-    def __init__(self, parent, gif, text_area, destroy_widgets, create_category_page, create_alphabetical_page):
+    def __init__(self, parent, gif, text_area, destroy_widgets, create_category_page, create_alphabetical_page, create_ingredient_page):
         ttk.Frame.__init__(self, parent)
         self.gif = gif
         self.text_area = text_area
@@ -61,7 +61,8 @@ class MainButtonGroup(ttk.Frame):
             self.button_frame,
             text="Search By Ingredient",
             bootstyle="info",
-            width=30
+            width=30,
+            command=create_ingredient_page
         )
         self.button4.grid(row=1, column=1, padx=20, pady=(0, 10), ipadx=15, ipady=10)
         # -----------------------------------RIGHT IMAGE----------------------------------------------------------------

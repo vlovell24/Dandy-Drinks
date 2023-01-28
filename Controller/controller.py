@@ -77,6 +77,32 @@ def return_categories():
     return return_array
 
 
+def return_ingredients():
+    url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
+    return_array = []
+    try:
+        data = requests.get(url)
+        ingredients = json.loads(data.text)
+        for array in (ingredients["drinks"]):
+            return_array.append(array['strIngredient1'])
+    except BaseException:
+        return None
+    return return_array
+
+
+def return_drinks_by_ingredient(ingredient):
+    url = f'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingredient}'
+    return_array = []
+    try:
+        data = requests.get(url)
+        drinks = json.loads(data.text)
+        for array in (drinks["drinks"]):
+            return_array.append(array['strDrink'])
+    except BaseException:
+        return None
+    return return_array
+
+
 def return_drinks_by_category(category):
     url = f'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c={category}'
     return_array = []

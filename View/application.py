@@ -7,7 +7,7 @@ from View.main_image import MainImage
 from View.home_text import HomeText
 from View.random_page import RandomPage
 from View.category_page import CategoryPage
-from View.alphabetical_page import AlphabeticalPage
+from View.alphabetical_page import SelectionPage
 
 
 class Application(ttk.Window):
@@ -55,7 +55,8 @@ class Application(ttk.Window):
                                               self.home_text,
                                               lambda: self.create_page("random"),
                                               lambda: self.create_page("category"),
-                                              lambda: self.create_page("alphabetical"))
+                                              lambda: self.create_page("alphabetical"),
+                                              lambda: self.create_page("ingredient"))
         self.bottom_section.pack(fill='x')
 
     def destroy_widgets(self):
@@ -90,8 +91,9 @@ class Application(ttk.Window):
                 data = return_categories()
                 self.instance = CategoryPage(self, data, lambda: self.destroy_page(self.instance))
             elif page == "alphabetical":
-                data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-                self.instance = AlphabeticalPage(self, data, lambda: self.destroy_page(self.instance))
+                self.instance = SelectionPage(self, lambda: self.destroy_page(self.instance), "alphabetical")
+            elif page == "ingredient":
+                self.instance = SelectionPage(self, lambda: self.destroy_page(self.instance), "ingredient")
             self.destroy_widgets()
             self.instance.pack()
         except Exception:
