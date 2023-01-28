@@ -1,18 +1,20 @@
 from tkinter import BOTH
-from Controller.format_image import FormatImage
+
 import ttkbootstrap as ttk
-from Controller.controller import return_drinks_by_category, return_random_drink
+from Controller.controller import return_drinks_by_letter, return_random_drink, return_drinks_by_category, \
+    return_categories, return_ingredients, return_drinks_by_ingredient
+from Controller.format_image import FormatImage
 from Controller.update_single_drink import UpdateSingleDrink
 
 
-class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
-    """Layout for the category page. Inherits from ttk.Frame, the mixin UpdateSingleDrink, and the mixin
-       FormatImage
-    """
+class SelectionPage(ttk.Frame, FormatImage, UpdateSingleDrink):
+    """Layout for dropdown pages"""
 
-    def __init__(self, parent, category_data, destroy_page_method):
+    def __init__(self, parent, destroy_page_method, page_type):
         ttk.Frame.__init__(self, parent)
-        self.category_data = category_data  # categories list
+        self.page_type = page_type
+        self.category_data = self.get_data_type()  # categories list
+        self.dropdown_one_text = self.set_dropdown_one_text()
         # -----------------------------------------FRAME FOR TOP DROPDOWNS----------------------------------------------
         self.dropdown_frame = ttk.Frame(self)
         self.dropdown_frame.grid(row=0, column=0, sticky='nsew')
@@ -29,7 +31,7 @@ class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
         self.category_combobox_label = ttk.Label(
             self.dropdown_frame,
             font=("Comic Sans MS", 12),
-            text="Select a Drink Category",
+            text=self.dropdown_one_text,
             bootstyle="info"
         )
         self.category_combobox_label.grid(row=0, column=0, pady=5)
@@ -42,9 +44,10 @@ class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
         self.category_combobox.grid(row=1, column=0)
         self.category_combobox['values'] = self.category_data  # set values to category_data list
         self.category_combobox.current(0)  # default value is set to the first entry
-        self.category_combobox.bind('<<ComboboxSelected>>', self.category_change)  # binding box one
-        # ---------------------------------------------DROPDOWN TWO/SELECT DRINK----------------------------------------
-        self.drink_selection_var = ttk.StringVar()  # set to the value of the select drink combobox whenever changed
+        self.category_combobox.bind('<<ComboboxSelected>>', self.category_change)
+
+        # ------------------------------------------DRINKS COMBOBOX-----------------------------------------------------
+        self.drink_selection_var = ttk.StringVar()  # set to the value of the select drink combobox whenever changes
         self.select_drink_label = ttk.Label(
             self.dropdown_frame,
             font=("Comic Sans MS", 12),
@@ -59,12 +62,11 @@ class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
             width=50
         )
         self.select_drink_combobox.grid(row=3, column=0)
-        self.select_drink_combobox['values'] = return_drinks_by_category(self.category_combobox.get())
-        self.select_drink_combobox.current(0)
-        self.select_drink_combobox.bind('<<ComboboxSelected>>', self.drink_type_change)  # binding box two
-        # create a default drink when page loads, defaults to whatever is in the combobox
-        self.bind("<Visibility>", self.drink_type_change)
+        self.select_drink_combobox['values'] = self.drink_default_value()
+        self.select_drink_combobox.current(0)  # set default to zero value
 
+        self.select_drink_combobox.bind('<<ComboboxSelected>>', self.drink_change)
+        self.bind('<Visibility>', self.drink_change)
         # ------------------------------------------------------DRINK NAME----------------------------------------------
         self.drink_name = ttk.Label(
             self.dropdown_frame,
@@ -75,7 +77,6 @@ class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
         # ----------------------------------------------------BOTTOM FRAME----------------------------------------------
         self.bottom_frame = ttk.Frame(self)
         self.bottom_frame.grid(row=1, column=0, sticky='nsew')
-
         # ----------------------------------------------------LEFT DRINK IMAGE FRAME------------------------------------
         self.drink_image_frame = ttk.Frame(self.bottom_frame)
         self.drink_image_frame.pack(side='left', expand=True, fill=BOTH)
@@ -153,64 +154,65 @@ class CategoryPage(ttk.Frame, UpdateSingleDrink, FormatImage):
         self.instructions_text.pack(fill=BOTH, side='top', expand=True)
         self.instructions_text['state'] = 'disabled'
 
+    def set_dropdown_one_text(self):
+        text = ""
+        if self.page_type == "alphabetical":
+            text = "Select a Letter"
+        elif self.page_type == "category":
+            text = "Select a Drink Category"
+        elif self.page_type == "ingredient":
+            text = "Select a Ingredient"
+        return text
+
     def category_change(self, event):
-        """
-        Bound to the category combobox event. When the combobox value changes due to the user selecting a new category,
-        this event fires. First it calls the api with the query of the combobox category value, then changes the values
-        in the second combobox based on the query results. It also clears the default highlighting on the combobox.
-        :param event:
-        :return: None; changes field values
-        """
-        # get drink types data
-        drinks = return_drinks_by_category(self.category_combobox.get())
-        # set values in select drink combobox
+        drinks = []
+        if self.page_type == "alphabetical":
+            drinks = return_drinks_by_letter(self.category_combobox.get())
+        elif self.page_type == "category":
+            drinks = return_drinks_by_category(self.category_combobox.get())
+        elif self.page_type == "ingredient":
+            drinks = return_drinks_by_ingredient(self.category_combobox.get())
         self.select_drink_combobox['values'] = drinks
-        # set current value to the new values
         self.select_drink_combobox.current(0)
-        # clear the text highlighting ewwww
         self.category_combobox.selection_clear()
-        self.drink_type_change(None)
+        self.drink_change(None)  # to update the drink stringvar
 
-    def drink_type_change(self, event):
+    def get_data_type(self):
+        return_data = []
+        if self.page_type == "category":
+            return_data = return_categories()
+        elif self.page_type == "alphabetical":
+            return_data = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+                           'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+        elif self.page_type == "ingredient":
+            return_data = return_ingredients()
+        return return_data
+
+    def drink_default_value(self):
         """
-        Bound to the drink type combobox BUT also used in the category_change method with a param of None for the event.
-        This method changes sets the value of the drink selection stringvar to the combobox selection, clears the
-        text highlighting in the combobox, gets the drink info from the api and then calls the modify_drink_info
-        method to complete the change on the fields.
-        :param event:
-        :return: None, changes values of fields
+        Gets the values to fill the select_drink combobox by calling the api and passing in the value of the
+        category_combobox. These values are returned as the dropdown values of the select_drink combobox
+        :return: List; values for the select_drink combobox
         """
-        # set the drink selection stringvar value
+        if self.page_type == "category":
+            return return_drinks_by_category(self.category_combobox.get())
+        elif self.page_type == "alphabetical":
+            return return_drinks_by_letter(self.category_combobox.get())
+        elif self.page_type == "ingredient":
+            return return_drinks_by_ingredient(self.category_combobox.get())
+
+    def drink_change(self, event):
+        # set the drink stringvar value
         self.drink_selection_var.set(self.select_drink_combobox.get())
-        # clear the highlighting on the combobox ew
-        self.select_drink_combobox.selection_clear()
-        # now query the api for the new drink name
+        self.select_drink_combobox.selection_clear()  # clear the highlighting
         drink_name = self.drink_selection_var.get()
-        data = self.return_drink_change(drink_name)
-        # reset the values on the page
-        self.modify_drink_info(data)
-
-    @staticmethod
-    def return_drink_change(drink_name):
-        """
-        returns the drink data from the api
-        :param drink_name:
-        :return: list; drink data
-        """
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
-        return return_random_drink(new_url=url)
+        self.modify_drink_values_on_page(return_random_drink(new_url=url))
 
-    def modify_drink_info(self, data):
-        """
-        Changes the label values and image for the drink on the screen.
-        :param data: data list from the api
-        :return: None; changes label and image values
-        """
-        # modify the image
+    def modify_drink_values_on_page(self, data):
         drink_image = self.format_image(data)
         self.image = drink_image
         self.image_label['image'] = drink_image
-        # modify the remaining fields
         self.update_single_drink(data,
                                  self.drink_name,
                                  self.category_text,

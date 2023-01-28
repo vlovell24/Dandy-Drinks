@@ -1,13 +1,12 @@
 from View.home_button_frame import MainButtonGroup
-from Controller.controller import return_random_drink, return_categories
+from Controller.controller import return_random_drink
 import ttkbootstrap as ttk
 from Images import LOGO
 from View.title_bar import TitleBar
 from View.main_image import MainImage
 from View.home_text import HomeText
 from View.random_page import RandomPage
-from View.category_page import CategoryPage
-from View.alphabetical_page import SelectionPage
+from View.selection_page import SelectionPage
 
 
 class Application(ttk.Window):
@@ -88,8 +87,7 @@ class Application(ttk.Window):
                 data = return_random_drink()
                 self.instance = RandomPage(self, data, lambda: self.destroy_page(self.instance))
             elif page == "category":
-                data = return_categories()
-                self.instance = CategoryPage(self, data, lambda: self.destroy_page(self.instance))
+                self.instance = SelectionPage(self, lambda: self.destroy_page(self.instance), "category")
             elif page == "alphabetical":
                 self.instance = SelectionPage(self, lambda: self.destroy_page(self.instance), "alphabetical")
             elif page == "ingredient":
