@@ -53,7 +53,7 @@ Clicking on the :house: Home button will return the user to the Home page of the
 <img src="readme_images/dandy_shuffle.png" alt="random shuffle" style="width: 500px;"/>
 </p>
   
-Clicking on the Search By Drink Categories will open a new page as seen below:
+### SEARCH BY DRINK CATEGORIES
 
 <p float="left">
 <img src="readme_images/dandy_category.png" alt="category page" style="width: 500px;"/>
@@ -69,6 +69,18 @@ value is shown in the dropdown below, and the page changes to that drink. When a
 selected, the page also changes to the newly selected drink. The user may go back to the home page at any time
 by clicking the home button.
 
+### SEARCH BY FIRST LETTER
+
+<p float="left">
+<img src="readme_images/search_alphabetical.png" alt="alphabet page" style="width: 500px;"/>
+</p>
+
+The search by first letter page opens a new application page with two dropdowns:
+- Select a Letter (alphabetical dropdown)
+- Select a Drink (Select drink)
+This page is also fully dynamic, and when a letter is selected, the select drink dropdown will query the api for the 
+letter selected, and return all drinks starting with that letter, in the select a drink dropdown. When a drink is selected
+the page will change with that drinks values.
 
 ## Additional Notes :ledger:
 - :computer: The GUI for this application is made with Tkinter and TTKBootstrap
