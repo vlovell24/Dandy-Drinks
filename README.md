@@ -82,6 +82,17 @@ This page is also fully dynamic, and when a letter is selected, the select drink
 letter selected, and return all drinks starting with that letter, in the select a drink dropdown. When a drink is selected
 the page will change with that drinks values.
 
+### SEARCH BY INGREDIENT
+
+<p float="left">
+<img src="readme_images/search_ingredient.png" alt="alphabet page" style="width: 500px;"/>
+</p>
+
+The search by ingredient page opens a new application page with two dropdowns:
+- Select a Ingredient
+- Select a Drink
+This page is fully dynamic and when an ingredient is selected, the select drink dropdown will query the api and change the
+second select drink dropdown. Once a new drink is selected from this dropdown, the page will update with the new values. 
 ## Additional Notes :ledger:
 - :computer: The GUI for this application is made with Tkinter and TTKBootstrap
 - :art: The theme used from tkinter is 'United'
