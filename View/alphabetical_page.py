@@ -135,6 +135,22 @@ class SelectionPage(ttk.Frame, FormatImage):
             width=50
         )
         self.glass_text.pack(fill='x', side='top', expand=True)
+        # ------------------------------------------------INSTRUCTIONS LABELFRAME---------------------------------------
+        self.instructions_frame = ttk.LabelFrame(
+            self.info_frame,
+            text="Instructions",
+            bootstyle='info'
+        )
+        self.instructions_frame.grid(row=3, column=0, pady=(0, 10), padx=20, sticky='ew')
+        # ----------------------------------------------INSTRUCTIONS TEXT-----------------------------------------------
+        self.instructions_text = ttk.Text(
+            self.instructions_frame,
+            wrap="word",
+            width=50,
+            height=12
+        )
+        self.instructions_text.pack(fill=BOTH, side='top', expand=True)
+        self.instructions_text['state'] = 'disabled'
 
     def set_dropdown_one_text(self):
         text = ""
