@@ -1,9 +1,11 @@
+from tkinter import BOTH
+
 import ttkbootstrap as ttk
 from Controller.controller import return_drinks_by_letter, return_random_drink, return_drinks_by_category, \
     return_categories, return_ingredients, return_drinks_by_ingredient
+from Controller.format_image import FormatImage
 
-
-class SelectionPage(ttk.Frame):
+class SelectionPage(ttk.Frame, FormatImage):
     """Layout for the search alphabetically page"""
 
     def __init__(self, parent, destroy_page_method, page_type):
@@ -73,6 +75,66 @@ class SelectionPage(ttk.Frame):
         # ----------------------------------------------------BOTTOM FRAME----------------------------------------------
         self.bottom_frame = ttk.Frame(self)
         self.bottom_frame.grid(row=1, column=0, sticky='nsew')
+        # ----------------------------------------------------LEFT DRINK IMAGE FRAME------------------------------------
+        self.drink_image_frame = ttk.Frame(self.bottom_frame)
+        self.drink_image_frame.pack(side='left', expand=True, fill=BOTH)
+        # -------------------------------------------------------DRINK IMAGE--------------------------------------------
+        self.image = ''
+        self.image_label = ttk.Label(
+            self.bottom_frame,
+            bootstyle='inverse-secondary',
+            anchor='center',
+            image=self.image
+        )
+        self.image_label.pack(ipadx=20, ipady=10, side='left')
+        # ----------------------------------------------------RIGHT INFORMATION FRAME-----------------------------------
+        self.info_frame = ttk.Frame(self.bottom_frame)
+        self.info_frame.pack(side='left', expand=True, fill=BOTH)
+        # ----------------------------------------------------CATEGORY LABELFRAME---------------------------------------
+        self.category_label = ttk.LabelFrame(
+            self.info_frame,
+            text="Drink Category",
+            bootstyle='info'
+        )
+        self.category_label.grid(row=0, column=0, pady=(10, 10), padx=20, sticky='ew')
+        # ----------------------------------------------------CATEGORY TEXT---------------------------------------------
+        self.category_text = ttk.Label(
+            self.category_label,
+            text="Testing here",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.category_text.pack(fill='x', side='top', expand=True)
+        # ----------------------------------------------------ALCOHOLIC LABELFRAME--------------------------------------
+        self.alcoholic = ttk.LabelFrame(
+            self.info_frame,
+            text="Alcoholic or Non",
+            bootstyle='info'
+        )
+        self.alcoholic.grid(row=1, column=0, pady=(0, 10), padx=(20, 20), sticky='ew')
+        # -------------------------------------------------------ALCOHOLIC TEXT-----------------------------------------
+        self.alcoholic_text = ttk.Label(
+            self.alcoholic,
+            text="Testing alcohol",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.alcoholic_text.pack(fill='x', side='top', expand=True)
+        # --------------------------------------------------GLASS TYPE LABELFRAME---------------------------------------
+        self.glass_frame = ttk.LabelFrame(
+            self.info_frame,
+            text="Glass Type",
+            bootstyle='info'
+        )
+        self.glass_frame.grid(row=2, column=0, pady=(0, 10), padx=20, sticky='ew')
+        # ----------------------------------------------------GLASS TEXT------------------------------------------------
+        self.glass_text = ttk.Label(
+            self.glass_frame,
+            text="Testing glass",
+            font=("Comic Sans MS", 10, 'bold'),
+            width=50
+        )
+        self.glass_text.pack(fill='x', side='top', expand=True)
 
     def set_dropdown_one_text(self):
         text = ""
@@ -129,4 +191,6 @@ class SelectionPage(ttk.Frame):
         url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?s={drink_name}'
         return return_random_drink(new_url=url)
 
-        print(self.drink_selection_var.get())
+
+    # def modify_drink_values_on_page(self, data):
+    #     drink_image = self.format_image(data)
