@@ -83,7 +83,7 @@ letter selected, and return all drinks starting with that letter, in the select 
 the page will change with that drinks values.
 
 ### :cook: SEARCH BY INGREDIENT
-****
+
 <p float="left">
 <img src="readme_images/search_ingredient.png" alt="alphabet page" style="width: 500px;"/>
 </p>
