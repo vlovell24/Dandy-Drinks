@@ -113,7 +113,7 @@ The installer places everything in ProgramFiles(x86) under DandyDrinks. Within t
 or use the typical uninstall route to remove.
 
 ## Additional Notes :ledger:
-***
+
 - :computer: The GUI for this application is made with Tkinter and TTKBootstrap
 - :art: The theme used from tkinter is 'United'
 - :globe_with_meridians: This is a desktop application, but an internet connection is required to query the api
