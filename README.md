@@ -1,18 +1,18 @@
-## :wine_glass: DANDY DRINKS :cocktail:
+# <p align="center">:wine_glass: DANDY DRINKS :cocktail:</p>
 
-### :eyes: About
-***
+## :eyes: About
+
  Dandy drinks is a desktop application that uses :tropical_drink: thecocktaildb.com api to create a 
 fun application for anything drink related. Generate random drinks :beer:, search for drinks 
 by glass type :tumbler_glass:, alcohol :beers:, alcoholic/non-alcoholic :bubble_tea:, or any ingredients. :question: 
 
-### :question: Why?
-***
+## :question: Why?
+
 I created this as a beginner lesson in accessing api's, retrieving data and making a fully 
 dynamic desktop application with Python and Tkinter. 
 
-### Lets's Begin:
-***
+## Lets's Begin:
+
 The application opens to a 'home page' screen with a banner image near the top of the page,
 and four buttons at the bottom of the page labeled as:
 - :mag: Search By Drink Categories
@@ -24,8 +24,7 @@ and four buttons at the bottom of the page labeled as:
 <img src="readme_images/dandy_home.png" alt="home page" style="width: 500px;"/>
 </p>
 
-### :question: SELECT RANDOM
-***
+## :question: SELECT RANDOM
 
 When clicked, the Select Random button opens a new 'page' in the application that displays a
 random drink brought back from the api. 
@@ -52,8 +51,7 @@ Clicking on the :house: Home button will return the user to the Home page of the
 <img src="readme_images/dandy_shuffle.png" alt="random shuffle" style="width: 500px;"/>
 </p>
   
-### :tumbler_glass: SEARCH BY DRINK CATEGORIES
-***
+## :tumbler_glass: SEARCH BY DRINK CATEGORIES
 
 <p float="left">
 <img src="readme_images/dandy_category.png" alt="category page" style="width: 500px;"/>
@@ -69,8 +67,8 @@ value is shown in the dropdown below, and the page changes to that drink. When a
 selected, the page also changes to the newly selected drink. The user may go back to the home page at any time
 by clicking the home button.
 
-### :abc: SEARCH BY FIRST LETTER
-***
+## :abc: SEARCH BY FIRST LETTER
+
 <p float="left">
 <img src="readme_images/search_alphabetical.png" alt="alphabet page" style="width: 500px;"/>
 </p>
