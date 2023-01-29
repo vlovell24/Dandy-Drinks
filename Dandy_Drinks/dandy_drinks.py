@@ -1,4 +1,4 @@
-from View.application import Application
+from Dandy_Drinks.View.application import Application
 
 
 if __name__ == "__main__":

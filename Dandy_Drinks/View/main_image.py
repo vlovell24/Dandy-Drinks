@@ -1,6 +1,6 @@
 from PIL import Image, ImageTk
 import ttkbootstrap as ttk
-from Images import MAIN
+from Dandy_Drinks.Images import MAIN
 
 
 class MainImage(ttk.Frame):

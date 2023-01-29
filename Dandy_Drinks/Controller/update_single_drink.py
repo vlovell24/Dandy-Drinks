@@ -1,5 +1,5 @@
-from tkinter import ttk, END
-from Controller.formatted_instructions import FormattedInstructions
+from tkinter import END
+from Dandy_Drinks.Controller.formatted_instructions import FormattedInstructions
 
 
 class UpdateSingleDrink:

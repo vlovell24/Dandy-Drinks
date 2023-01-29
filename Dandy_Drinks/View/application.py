@@ -1,12 +1,12 @@
-from View.home_button_frame import MainButtonGroup
-from Controller.controller import return_random_drink
+from Dandy_Drinks.View.home_button_frame import MainButtonGroup
+from Dandy_Drinks.Controller.controller import return_random_drink
 import ttkbootstrap as ttk
-from Images import LOGO
-from View.title_bar import TitleBar
-from View.main_image import MainImage
-from View.home_text import HomeText
-from View.random_page import RandomPage
-from View.selection_page import SelectionPage
+from Dandy_Drinks.Images import LOGO
+from Dandy_Drinks.View.title_bar import TitleBar
+from Dandy_Drinks.View.main_image import MainImage
+from Dandy_Drinks.View.home_text import HomeText
+from Dandy_Drinks.View.random_page import RandomPage
+from Dandy_Drinks.View.selection_page import SelectionPage
 
 
 class Application(ttk.Window):

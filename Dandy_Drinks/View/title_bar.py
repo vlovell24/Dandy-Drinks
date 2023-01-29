@@ -1,6 +1,6 @@
 from tkinter import ttk
 from PIL import Image, ImageTk
-from Images import BANNER
+from Dandy_Drinks.Images import BANNER
 
 
 class TitleBar(ttk.Frame):

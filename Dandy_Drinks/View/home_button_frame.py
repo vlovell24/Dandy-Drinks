@@ -1,7 +1,7 @@
 import ttkbootstrap as ttk
 from PIL import Image, ImageTk
-from Images import RIGHT_DRINK
-from Images import LEFT_DRINK
+from Dandy_Drinks.Images import RIGHT_DRINK
+from Dandy_Drinks.Images import LEFT_DRINK
 
 
 class MainButtonGroup(ttk.Frame):

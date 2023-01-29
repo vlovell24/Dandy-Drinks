@@ -1,10 +1,10 @@
 from tkinter import BOTH
 
 import ttkbootstrap as ttk
-from Controller.controller import return_drinks_by_letter, return_random_drink, return_drinks_by_category, \
+from Dandy_Drinks.Controller.controller import return_drinks_by_letter, return_random_drink, return_drinks_by_category, \
     return_categories, return_ingredients, return_drinks_by_ingredient
-from Controller.format_image import FormatImage
-from Controller.update_single_drink import UpdateSingleDrink
+from Dandy_Drinks.Controller.format_image import FormatImage
+from Dandy_Drinks.Controller.update_single_drink import UpdateSingleDrink
 
 
 class SelectionPage(ttk.Frame, FormatImage, UpdateSingleDrink):

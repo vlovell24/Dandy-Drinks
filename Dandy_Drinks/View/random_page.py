@@ -1,8 +1,8 @@
-from Controller.formatted_instructions import FormattedInstructions
-from Controller.controller import return_random_drink
+from Dandy_Drinks.Controller.formatted_instructions import FormattedInstructions
+from Dandy_Drinks.Controller.controller import return_random_drink
 import ttkbootstrap as ttk
-from Controller.format_image import FormatImage
-from Controller.update_single_drink import UpdateSingleDrink
+from Dandy_Drinks.Controller.format_image import FormatImage
+from Dandy_Drinks.Controller.update_single_drink import UpdateSingleDrink
 
 
 class RandomPage(ttk.Frame, UpdateSingleDrink, FormattedInstructions, FormatImage):
