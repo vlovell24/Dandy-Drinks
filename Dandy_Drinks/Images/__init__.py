@@ -1,5 +1,7 @@
 from pathlib import Path
-
+"""
+Contains all of the images used in the application. Placed in the init as Const values for easy access.
+"""
 IMAGE_DIRECTORY = Path(__file__).parent
 
 LOGO = IMAGE_DIRECTORY / "drink_logo.png"

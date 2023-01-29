@@ -75,5 +75,4 @@ class MainButtonGroup(ttk.Frame):
         )
         self.right_content.grid(row=0, column=2, sticky='e')
 
-    # -------------------------------------------METHODS----------------------------------------------------------------
 
