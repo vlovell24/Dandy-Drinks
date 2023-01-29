@@ -82,7 +82,7 @@ This page is also fully dynamic, and when a letter is selected, the select drink
 letter selected, and return all drinks starting with that letter, in the select a drink dropdown. When a drink is selected
 the page will change with that drinks values.
 
-### :cook: SEARCH BY INGREDIENT
+## :cook: SEARCH BY INGREDIENT
 
 <p float="left">
 <img src="readme_images/search_ingredient.png" alt="alphabet page" style="width: 500px;"/>
