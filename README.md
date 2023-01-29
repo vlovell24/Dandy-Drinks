@@ -83,7 +83,7 @@ letter selected, and return all drinks starting with that letter, in the select 
 the page will change with that drinks values.
 
 ### :cook: SEARCH BY INGREDIENT
-***
+****
 <p float="left">
 <img src="readme_images/search_ingredient.png" alt="alphabet page" style="width: 500px;"/>
 </p>
@@ -94,7 +94,7 @@ The search by ingredient page opens a new application page with two dropdowns:
 This page is fully dynamic and when an ingredient is selected, the select drink dropdown will query the api and change the
 second select drink dropdown. Once a new drink is selected from this dropdown, the page will update with the new values. 
 ## :desktop_computer: INSTALLATION INSTRUCTIONS
-***
+
 An installer is included for WINDOWS only. 
 On the right side of the repo under 'Releases' you will find a windows installer executable. 
 <p float="left">
