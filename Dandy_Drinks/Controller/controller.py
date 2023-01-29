@@ -1,13 +1,21 @@
 import json
 import requests
 
+"""
+Controller is used as the 'Model' in our application. It's job is to query the database via functions and return data.
+If an internet connection is not available, a BaseException is thrown and the value of None is returned.
+"""
+
 
 def return_random_drink(new_url=""):
     """
     Opens the api and gets a random drink. Once the data is recieved, it must be parsed. It is loaded into a list for
-    return. The ingredients and measurements are seperate values and must be forced together and then appended to the
-    return list.
+    return. The ingredients and measurements are separate values and must be forced together and then appended to the
+    return list. If no param value is provided, then the random query will be run by default. If a param is provided as
+    an url, it will be used for the query.
+    :param: new_url; by default is set to empty string, but will take an url path
     :return: List; return_array
+    :exception: Base Exception; if no internet connection is available this will be thrown and None returned
     """
     if new_url != "":
         url = new_url
@@ -61,8 +69,10 @@ def return_random_drink(new_url=""):
 def return_categories():
     """
     Queries thecocktaildb for a list of all the drink categories. Pulls the strCategory name out of the returned data
-    appends to return_array and returns the array.
-    :return: return_array
+    and appends to return_array and returns the array.
+    :return:List; return_array
+    :exception: BaseException thrown if no internet connection, and None returned
+
     """
     url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list'
     return_array = []
@@ -78,6 +88,12 @@ def return_categories():
 
 
 def return_ingredients():
+    """
+    Queries the database for a list of all ingredients using the variable 'url' that is set within the method. Returns
+    the results of the query as a list.
+    :return: list; return_array
+    :exception: BaseException if no internet connection and None is returned
+    """
     url = 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list'
     return_array = []
     try:
@@ -91,6 +107,14 @@ def return_ingredients():
 
 
 def return_drinks_by_ingredient(ingredient):
+    """
+    Queries the database for a specific drink, which is supplied as the parameter ingredient. The result of the query is
+    formatted as a json object, and then the strDrink category is pulled from the data and returned. The url for the
+    endpoint is stored in the method with the variable name url.
+    :param ingredient: The ingredient that is being searched for. No need to force lower or upper. The api takes either.
+    :return: list; return_array
+    :exception: BaseException thrown if no internet is available, and None is returned.
+    """
     url = f'https://www.thecocktaildb.com/api/json/v1/1/filter.php?i={ingredient}'
     return_array = []
     try:
@@ -104,6 +128,13 @@ def return_drinks_by_ingredient(ingredient):
 
 
 def return_drinks_by_category(category):
+    """
+    Queries the database for a specific category, which is supplied via the parameter category. The results of the query
+    are parsed into json, and then looped over. The strDrink name is appended to the return_array and returned.
+    :param category: A string that is the category of drink being searched for (shot, cocktail, etc.)
+    :return: list; return_array (an array of drink categories)
+    :exception: BaseException thrown if no internet connection, and None returned
+    """
     url = f'https://www.thecocktaildb.com/api/json/v1/1/filter.php?c={category}'
     return_array = []
     try:
@@ -118,6 +149,14 @@ def return_drinks_by_category(category):
 
 
 def return_drinks_by_letter(letter):
+    """
+    Queries the api for all drinks that start with a specific letter, provided by the parameter 'letter'. The return
+    value is parsed into a json object and looped through. Each strDrink found is appended to the return_array variable
+    and then returned.
+    :param letter: A single 'char' being searched for
+    :return: list; return_array
+    :exception: BaseException thrown if no internet connection and None returned.
+    """
     url = f'https://www.thecocktaildb.com/api/json/v1/1/search.php?f={letter}'
     return_array = []
     try:
