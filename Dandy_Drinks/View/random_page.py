@@ -4,6 +4,20 @@ import ttkbootstrap as ttk
 from Dandy_Drinks.Controller.format_image import FormatImage
 from Dandy_Drinks.Controller.update_single_drink import UpdateSingleDrink
 
+"""
+RandomPage inherits from the tkinter frame, and the mixins UpdateSingleDrink, FormattedInstructions, and FormatImage.
+This class creates the random drink page in the application with the following items:
+1. The shuffle new random drink button - this button calls the api for a new random drink
+2. The home button - this button will destroy this class and recreate the home page widgets.
+3. Drink Name - A label class that displays the drink name
+4. Drink Image - A label class that displays the drink image. Uses a method from the FormatImage class.
+5. Drink Category - A LabelFrame widget that displays the drink category
+6. Drink Type - A LabelFrame widget that displays if the drink is Alcoholic or Non-Alcoholic
+7. Glass Type - A LabelFrame widget that displays the glass type of the drink
+8. Instructions - A LabelFrame widget that displays the ingredients and instructions for a drink. Uses a method from the
+   FormattedInstructions class.
+"""
+
 
 class RandomPage(ttk.Frame, UpdateSingleDrink, FormattedInstructions, FormatImage):
     """Layout for the random drink page, inherits from ttk.Frame, the mixin UpdateSingleDrink, the mixin
