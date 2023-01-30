@@ -3,11 +3,23 @@ from PIL import Image, ImageTk
 from Dandy_Drinks.Images import RIGHT_DRINK
 from Dandy_Drinks.Images import LEFT_DRINK
 
+"""
+MainButtonGroup is a class that inherits from the tkinter Frame. It contains a left drink image, a right drink image and
+four buttons named Search By Drink Categories, Select Random, Search Alphabetically, and Search By Ingredient. The 
+parameter field of the constructor takes several arguments.
+1. gif - This is the banner image in the main application window. It is a object.
+2. text_area - this is the text section of the main application window. It is a object.
+3. destroy_widgets - this is a method that is passed in that will create the random page if called.
+4. create_category_page - this is a method that will create the category page if called.
+5. create_alphabetical_page - this is a method that will create the alphabetical page if called.
+6. create_ingredient_page - this is a method that will create the ingredient page if called.
+"""
+
 
 class MainButtonGroup(ttk.Frame):
-    """group of four buttons and two images"""
 
-    def __init__(self, parent, gif, text_area, destroy_widgets, create_category_page, create_alphabetical_page, create_ingredient_page):
+    def __init__(self, parent, gif, text_area, destroy_widgets, create_category_page, create_alphabetical_page,
+                 create_ingredient_page):
         ttk.Frame.__init__(self, parent)
         self.gif = gif
         self.text_area = text_area
@@ -74,5 +86,3 @@ class MainButtonGroup(ttk.Frame):
             image=self.right_image
         )
         self.right_content.grid(row=0, column=2, sticky='e')
-
-
