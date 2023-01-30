@@ -1,9 +1,13 @@
 from tkinter import BOTH
 import ttkbootstrap as ttk
 
+"""
+The HomeText class inherits from the tkinter Frame and contains one text Label. This text is what is packed in the 
+center of the main home screen.
+"""
+
 
 class HomeText(ttk.Frame):
-    """A group of text centered inside a frame"""
 
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)
