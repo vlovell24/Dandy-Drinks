@@ -2,9 +2,13 @@ from PIL import Image, ImageTk
 import ttkbootstrap as ttk
 from Dandy_Drinks.Images import MAIN
 
+"""
+The MainImage class inherits from the tkinter Frame widget. This class creates and packs an image to whatever it is
+attached too. The image file is hard coded for the purposes of this application, however it could be changed to a 
+parameter value, and then any image could be packed to the frame.
+"""
 
 class MainImage(ttk.Frame):
-    """Main image for the home page"""
 
     def __init__(self, parent):
         ttk.Frame.__init__(self, parent)
