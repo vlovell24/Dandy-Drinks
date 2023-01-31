@@ -1,28 +1,14 @@
-from tkinter import ttk, LEFT, CENTER, TOP, RIGHT
+from tkinter import ttk
 from PIL import Image, ImageTk
-from Dandy_Drinks.Images import BANNER, TOP_LEFT, TOP_RIGHT, TITLE_TEXT
+from Dandy_Drinks.Images import TOP_LEFT, TOP_RIGHT, TITLE_TEXT
 
 """
 TitleBar is a class that inherits from the tkinter Frame. This class creates the image banner on the main page and 
-packs it to the screen. The banner image supplied does not need to be presized as this class opens the image and 
-resizes it with the PIL library function 'resize'. It then applies antialias to the image (what i call jiggidy lines)
-and places the image in a tkinter label. This is then packed to whatever widget it is called from. The image is hard
-coded, but an image parameter could be added and any image could be passed in. Furthermore, the resize values could 
-also be added to the parameters and the image could be resized at any sized needed. 
+packs it to the screen. The banner image consists of three separate images. The two drinks, and the title text. Each of
+these elements are resized and applied to the frame in a tkinter Label. The label is attached to the frame via the grid
+method. The background of the image label must be set to the color of the bootstyle 'info' which is #17A2B8 in hex. The
+top banner is now dynamic and will resize appropriately.
 """
-
-
-# class TitleBar(ttk.Frame):
-#     def __init__(self, parent):
-#         ttk.Frame.__init__(self, parent)
-#         self.image_raw = Image.open(BANNER)
-#         self.image_resize = self.image_raw.resize((1020, 100), Image.ANTIALIAS)
-#         self.resized_image = ImageTk.PhotoImage(self.image_resize)
-#         self.title_label = ttk.Label(
-#             self,
-#             image=self.resized_image
-#         )
-#         self.title_label.pack(fill='x')
 
 
 class TitleBar(ttk.Frame):
