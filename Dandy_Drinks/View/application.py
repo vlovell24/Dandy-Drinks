@@ -42,8 +42,8 @@ class Application(ttk.Window):
         self.logo = ttk.PhotoImage(file=LOGO)
         self.iconphoto(False, self.logo)
         # ----------------------------------CENTER SCREEN, SET SIZE, SET RESIZEABLE-------------------------------------
-        self.w = 920
-        self.h = 720
+        self.w = 1120
+        self.h = 820
         self.ws = self.winfo_screenwidth()
         self.hs = self.winfo_screenheight()
         self.x = (self.ws / 2) - (self.w / 2)
