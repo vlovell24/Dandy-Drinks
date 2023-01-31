@@ -14,9 +14,9 @@ open at one time. An instance variable of self.instance is created with a value 
 the value of this variable is what will be referenced when the pages are switched from home page, to random page, etc..
 The theme of united is set to the application, and the WM_DELETE_WINDOW command is used to overwrite the 'x' button that
 closes the application. This is not currently used, but it could be easily modified to use a confirmation popup/modal.
-The title, logo and screen size is set and the window is set to be fixed rather than resizeable. The title bar, gif,
-home page text and button group classes are packed to the screen. Five methods are used to control the destruction and
-creation of the widgets on the screen.
+The title, logo and screen size is set and the window is set to be fixed to a minimum and maximum rather than resizeable
+The title bar, gif,home page text and button group classes are packed to the screen. Five methods are used to control
+the destruction and creation of the widgets on the screen.
 """
 
 
@@ -43,14 +43,13 @@ class Application(ttk.Window):
         self.iconphoto(False, self.logo)
         # ----------------------------------CENTER SCREEN, SET SIZE, SET RESIZEABLE-------------------------------------
         self.w = 920
-        self.h = 820
+        self.h = 720
         self.ws = self.winfo_screenwidth()
         self.hs = self.winfo_screenheight()
         self.x = (self.ws / 2) - (self.w / 2)
         self.y = (self.hs / 2) - (self.h / 2)
         self.geometry('%dx%d+%d+%d' % (self.w, self.h, self.x, self.y))
-        #self.resizable(False, False)
-        self.minsize(920, 820)
+        self.minsize(920, 720)
         self.maxsize(1120, 820)
         # -------------------------------------TITLE BAR----------------------------------------------------------------
         self.title_bar = TitleBar(self)
