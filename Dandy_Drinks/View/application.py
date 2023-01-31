@@ -42,15 +42,16 @@ class Application(ttk.Window):
         self.logo = ttk.PhotoImage(file=LOGO)
         self.iconphoto(False, self.logo)
         # ----------------------------------CENTER SCREEN, SET SIZE, SET RESIZEABLE-------------------------------------
-        self.w = 1020
+        self.w = 920
         self.h = 820
         self.ws = self.winfo_screenwidth()
         self.hs = self.winfo_screenheight()
         self.x = (self.ws / 2) - (self.w / 2)
         self.y = (self.hs / 2) - (self.h / 2)
         self.geometry('%dx%d+%d+%d' % (self.w, self.h, self.x, self.y))
-        self.resizable(False, False)
-
+        #self.resizable(False, False)
+        self.minsize(920, 820)
+        self.maxsize(1120, 820)
         # -------------------------------------TITLE BAR----------------------------------------------------------------
         self.title_bar = TitleBar(self)
         self.title_bar.pack(fill='x')
